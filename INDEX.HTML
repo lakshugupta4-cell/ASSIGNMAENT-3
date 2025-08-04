@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #222222;
+      --primary-color: #4F46E5;
+      --sidebar-color: #f3f4f6;
+      --header-color: #e5e7eb;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #1f2937;
+      --text-color: #f9fafb;
+      --primary-color: #6366f1;
+      --sidebar-color: #374151;
+      --header-color: #4b5563;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      grid-template-rows: 60px 1fr;
+      grid-template-areas: 
+        "sidebar header"
+        "sidebar main";
+      height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    header {
+      grid-area: header;
+      background-color: var(--header-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .sidebar {
+      grid-area: sidebar;
+      background-color: var(--sidebar-color);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .main {
+      grid-area: main;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .nav-item {
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .nav-item:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--sidebar-color);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .theme-toggle {
+      padding: 8px 14px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background-color: #3730a3;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        grid-template-columns: 1fr;
+        grid-template-rows: 60px auto 1fr;
+        grid-template-areas: 
+          "header"
+          "sidebar"
+          "main";
+      }
+
+      .sidebar {
+        flex-direction: row;
+        justify-content: space-around;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <aside class="sidebar">
+    <div class="logo">Admin Panel</div>
+    <div class="nav-item">Dashboard</div>
+    <div class="nav-item">Users</div>
+    <div class="nav-item">Reports</div>
+    <div class="nav-item">Settings</div>
+  </aside>
+
+  <header>
+    <h1>Dashboard</h1>
+    <button class="theme-toggle" onclick="toggleTheme()">Switch Theme</button>
+  </header>
+
+  <main class="main">
+    <h2>Welcome, Admin!</h2>
+    <p>Here's a quick summary of your system's stats:</p>
+    <div class="cards">
+      <div class="card">
+        <h3>Users</h3>
+        <p>1,204</p>
+      </div>
+      <div class="card">
+        <h3>Sales</h3>
+        <p>$12,340</p>
+      </div>
+      <div class="card">
+        <h3>Active Sessions</h3>
+        <p>98</p>
+      </div>
+      <div class="card">
+        <h3>Reports</h3>
+        <p>34 pending</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      body.setAttribute('data-theme', currentTheme === 'light' ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>
